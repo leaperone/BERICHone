@@ -1,7 +1,7 @@
 import NextAuth, { User } from 'next-auth';
-import { PrismaAdapter } from '@auth/prisma-adapter';
+// import { PrismaAdapter } from '@auth/prisma-adapter';
 import Github from 'next-auth/providers/github';
-import { prisma } from '@/lib/db';
+// import { prisma } from '@/lib/db';
 
 
 declare module 'next-auth' {
@@ -14,8 +14,7 @@ declare module 'next-auth' {
 }
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  adapter: PrismaAdapter(prisma as any),
+  // adapter: PrismaAdapter(prisma as any), // DB disabled
   providers: [
     Github,
   ],

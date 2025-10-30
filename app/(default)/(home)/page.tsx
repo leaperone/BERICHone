@@ -1,273 +1,334 @@
-import { Avatar, Card, CardBody, CardHeader } from "@heroui/react";
-import { BookOpen, ExternalLink, Globe, Shield, Users, Zap } from "lucide-react";
-import FlipCard from "@/components/animata/card/flip-card";
-import ScrollingBanner from "@/components/scrolling-banner";
-import Marquee from "@/components/ui/marquee";
-import { createTranslation } from "@/i18n/server";
-import HeroSection from "./hero-section";
+import { Button, Card, Chip } from "@heroui/react";
+import { Icon } from "@iconify/react";
+import { CheckIcon } from "lucide-react";
+import Link from "next/link";
+import { cn } from "@/lib/utils";
 
-export default async function HomePage() {
+function HeroTextHover({ className }: { className?: string }) {
+  const features = [
+    {
+      text: "Supplier Sourcing",
+      hoverColor: "text-blue-500",
+      icons: [
+        { icon: "fluent-emoji:factory", position: "-left-20 -top-2" },
+        { icon: "fluent-emoji:handshake", position: "-left-8 -top-7" },
+      ],
+    },
+    {
+      text: "Quality Inspection",
+      hoverColor: "text-green-500",
+      icons: [
+        { icon: "fluent-emoji:magnifying-glass-tilted-left", position: "-left-16 -top-4" },
+        { icon: "fluent-emoji:check-mark-button", position: "-left-7 -top-11" },
+      ],
+    },
+    {
+      text: "Logistics Support",
+      hoverColor: "text-orange-500",
+      icons: [
+        { icon: "fluent-emoji:delivery-truck", position: "-left-14 -top-5" },
+        { icon: "fluent-emoji:package", position: "-left-4 -top-10" },
+      ],
+    },
+  ];
   return (
-    <div className="flex min-h-screen flex-col bg-background text-foreground">
-      <main className="grow">
-        <HeroSection className="h-[65dvh]" />
-        <AvailableOnPlatforms />
-        <ProductShowcase />
-        <UserRecommendations />
-      </main>
+    <div className={cn("pt-4 relative min-h-[60px] w-full rounded-2xl", className)}>
+      <div className="flex flex-col items-center justify-center gap-3">
+        <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-2 p-4 text-2xl font-bold sm:text-3xl md:text-4xl lg:text-5xl">
+          {features.map((feature) => (
+            <div key={feature.text} className="group relative flex items-center">
+              <span
+                className={cn("text-foreground transition-colors duration-300", `group-hover:${feature.hoverColor}`)}>
+                {feature.text}
+              </span>
+              <div className="absolute inset-0 cursor-pointer opacity-0 transition-opacity duration-400 group-hover:opacity-100">
+                {feature.icons.map((item) => (
+                  <span
+                    key={item.icon + item.position}
+                    className={cn(
+                      "pointer-events-none absolute transform transition-all duration-500 group-hover:scale-110",
+                      item.position,
+                    )}>
+                    <Icon icon={item.icon} className="size-7 align-middle" />
+                  </span>
+                ))}
+              </div>
+              {feature.text !== features[features.length - 1].text && (
+                <span className="ml-3 text-gray-400">
+                  {feature.text === features[features.length - 2].text ? "and" : ","}
+                </span>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }
 
-const AvailableOnPlatforms = async () => {
-  const { t } = await createTranslation("home");
-
-  const PLATFORMS = [
-    { key: "youtube", name: "YouTube", followers: "12M", icon: "logos:youtube-icon" },
-    { key: "bilibili", name: "Bilibili", followers: "50M", icon: "simple-icons:bilibili" },
-    { key: "tiktok", name: "TikTok", followers: "80M", icon: "logos:tiktok-icon" },
-    { key: "instagram", name: "Instagram", followers: "10M", icon: "logos:instagram-icon" },
-    { key: "twitch", name: "Twitch", followers: "100K", icon: "logos:twitch" },
-    { key: "telegram", name: "Telegram", followers: "100K", icon: "logos:telegram" },
-    { key: "twitter", name: "Twitter", followers: "100K", icon: "lucide:twitter" },
-  ] as const;
-
-  return (
-    <section className="relative w-full bg-background py-8">
-      <div className="mx-auto max-w-7xl px-6 py-2 sm:py-4 lg:px-4">
-        <div className="mb-4 text-center">
-          <h2 className="mb-4 font-bold text-4xl tracking-tight">{t("hero.title")}</h2>
-        </div>
-        <ScrollingBanner shouldPauseOnHover duration={30} gap="80px" className="py-8">
-          {[...PLATFORMS, ...PLATFORMS].map(({ key, name, followers, icon }) => (
-            <FlipCard
-              key={key}
-              className="size-56"
-              icon={icon}
-              title={name}
-              subtitle={t("platforms.followers", { followers })}
-              description={t("platforms.connect", { followers, platform: name })}
-            />
-          ))}
-        </ScrollingBanner>
-      </div>
-    </section>
-  );
-};
-
-const ProductShowcase = async () => {
-  const PRODUCTS = [
+export default function HomePage() {
+  // 业务数据
+  const howItWorks = [
     {
-      name: "2SOMEone",
-      description: "Professional live streaming platform for content creators and streamers",
-      href: "https://2some.one",
-      icon: Users,
-      features: ["Live Streaming", "Content Creation", "Community Management"],
-      color: "from-blue-500 to-cyan-500",
+      title: "Tell Us What You Need",
+      desc: "Describe your product and sourcing requirements in detail",
+      icon: "fluent:text-bullet-list-square-20-regular",
     },
     {
-      name: "2SOMEren",
-      description: "Advanced live streaming infrastructure and service platform",
-      href: "https://2some.ren",
-      icon: Globe,
-      features: ["Infrastructure", "Service Platform", "High Performance"],
-      color: "from-purple-500 to-pink-500",
+      title: "We Find Suppliers",
+      desc: "Get matched with trusted factories — no middlemen!",
+      icon: "fluent:building-factory-20-regular",
     },
     {
-      name: "MultiPost",
-      description: "Multi-platform operations tool for social media management",
-      href: "https://multipost.app",
-      icon: Zap,
-      features: ["Multi-Platform", "Social Media", "Operations"],
-      color: "from-green-500 to-emerald-500",
+      title: "Receive and Compare Quotes",
+      desc: "Review real offers, compare and choose what fits.",
+      icon: "fluent:mail-read-multiple-20-regular",
     },
     {
-      name: "Voite",
-      description: "Voice and audio communication platform for creators",
-      href: "https://voite.2some.one",
-      icon: Shield,
-      features: ["Voice Communication", "Audio Platform", "Creator Tools"],
-      color: "from-orange-500 to-red-500",
+      title: "Start Order & Relax",
+      desc: "We help you place orders, handle QC, shipping and after-sales.",
+      icon: "fluent:box-checkmark-20-regular",
+    },
+  ];
+  const services = [
+    {
+      title: "Supplier Verification",
+      desc: "Factory background checks, legal status & audits",
+      icon: "fluent:shield-task-20-regular",
     },
     {
-      name: "FameDayOne",
-      description: "Personal branding and fame building platform",
-      href: "https://fameday.one",
-      icon: BookOpen,
-      features: ["Personal Branding", "Fame Building", "Growth Platform"],
-      color: "from-indigo-500 to-purple-500",
+      title: "Product Sourcing",
+      desc: "Custom product development and reliable sourcing",
+      icon: "fluent:search-square-20-regular",
+    },
+    {
+      title: "Quotation Service",
+      desc: "Transparent, real-time multi-supplier quotes",
+      icon: "fluent:mail-bullet-20-regular",
+    },
+    {
+      title: "Quality Inspection",
+      desc: "Comprehensive inspection before shipment",
+      icon: "fluent:checklist-star-20-regular",
+    },
+    {
+      title: "Order Management",
+      desc: "From order to delivery, we track every step.",
+      icon: "fluent:clipboard-task-list-ltr-20-regular",
+    },
+    {
+      title: "Logistics & Shipping",
+      desc: "Global shipping, customs support & on-time delivery",
+      icon: "fluent:vehicle-ship-20-regular",
+    },
+  ];
+  const whyChoose = [
+    { title: "Strict QC", val: "99.8%", desc: "Pass rate for strict quality inspection" },
+    { title: "Verified Suppliers", val: "10,000+", desc: "Comprehensive background-checked factories" },
+    { title: "Real Cost Savings", val: "30%", desc: "Average savings vs. other services" },
+    { title: "2h Response", val: "2h", desc: "Average time for responding to client requests" },
+    { title: "On-Time", val: "98%", desc: "Shipments delivered on schedule" },
+    { title: "Full Support", val: "24/7", desc: "Global team provides full after-sales support" },
+  ];
+  const plans = [
+    {
+      name: "DIY",
+      price: "$99",
+      subtitle: "Find suppliers yourself — we provide verified lists and templates",
+      features: ["Verified supplier list", "Sourcing guide", "Basic support", "Quotation templates"],
+      popular: false,
+    },
+    {
+      name: "Assisted Sourcing",
+      price: "$1,499",
+      subtitle: "We help you negotiate, inspect, support payment & logistics",
+      features: [
+        "Custom supplier matching",
+        "Price negotiation",
+        "Inspection support",
+        "Payment advice",
+        "Logistics guidance",
+      ],
+      popular: true,
+    },
+    {
+      name: "Full Service",
+      price: "$2,999",
+      subtitle: "Hand-off everything to experts — from sourcing to delivery",
+      features: [
+        "Complete supplier management",
+        "All communication handled",
+        "Order tracking",
+        "Inspection, compliance",
+        "Shipping & logistics handled",
+        "After-sales coordination",
+      ],
+      popular: false,
+    },
+  ];
+  const testimonials = [
+    {
+      name: "Sarah Miller",
+      role: "Sourcing Manager",
+      content:
+        "We needed fast and safe sourcing, and the team found us trustworthy suppliers with real factory audits. The QC and logistics support made delivery worry-free!",
+    },
+    {
+      name: "Mike Zhang",
+      role: "Import Business Owner",
+      content:
+        "Reliable and fast — got quotes from verified suppliers, and all the paperwork/logistics were handled for me. Saved money and trouble.",
+    },
+    {
+      name: "Emily Wang",
+      role: "Procurement Director",
+      content:
+        "As a buyer new to China, their team handled factory checks, price talk, and delivery. We didn't worry about customs or order issues at all.",
+    },
+    {
+      name: "David Liu",
+      role: "Supply Chain Consultant",
+      content:
+        "Transparent pricing, no surprises. My clients get real inspection reports and shipment photos. Very responsive customer support!",
+    },
+    {
+      name: "Sophie Lin",
+      role: "E-commerce Entrepreneur",
+      content:
+        "Helped us develop new custom products, tracked everything to delivery. Feels like having a China team without the risk.",
+    },
+    {
+      name: "Tom Yang",
+      role: "International Trade Manager",
+      content:
+        "Communication and shipping so easy — we didn't worry about getting stuck with bad suppliers. Highly recommend for any importer.",
     },
   ];
 
   return (
-    <section className="relative w-full bg-background py-16">
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="mb-8 text-center">
-          <h2 className="mb-3 font-bold text-3xl tracking-tight">Our Products</h2>
-          <p className="mx-auto max-w-2xl text-base text-muted-foreground">
-            Discover our comprehensive suite of tools and platforms designed to empower creators, streamers, and
-            businesses in the digital age
-          </p>
+    <div className="flex min-h-screen flex-col bg-background text-foreground">
+      {/* Hero Section */}
+      <section className="hero-container relative w-full bg-background flex flex-col items-center pb-6 pt-16">
+        <Chip size="lg" variant="flat" color="success" startContent={<CheckIcon />}>
+          Beta
+        </Chip>
+        <HeroTextHover />
+        <p className="mb-8 w-full max-w-2xl animate-fadeIn text-center text-lg leading-8 text-foreground-600">
+          Let us help you find trusted suppliers, ensure quality and deliver on time.
+        </p>
+        <Button
+          as={Link}
+          href="/dashboard"
+          size="lg"
+          startContent={<Icon icon="fluent:people-team-20-regular" className="size-5" />}
+          className="bg-gradient-to-r from-blue-400 to-sky-300 text-white transition-opacity hover:opacity-90">
+          Get Started
+        </Button>
+      </section>
+      {/* Banner */}
+      <section className="w-full text-center py-4">
+        <div className="text-lg text-muted-foreground font-semibold">Trusted by 100+ Companies</div>
+        <div className="mt-2 text-2xl font-extrabold tracking-tight">Sourcing, Quality, Delivery — All In One</div>
+        <div className="mx-auto mt-2 max-w-xl text-base text-muted-foreground">
+          We handle factory checks, negotiation, quality inspection, and international shipping for you, from start to
+          finish.
         </div>
-
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {PRODUCTS.map((product) => (
+      </section>
+      {/* How It Works */}
+      <section className="mx-auto w-full max-w-5xl py-10">
+        <h2 className="text-2xl font-bold mb-6 text-center">How It Works</h2>
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-4">
+          {howItWorks.map((step, idx) => (
+            <div key={step.title} className="flex flex-col items-center border bg-background rounded-lg px-6 py-6">
+              <Icon icon={step.icon} className="mb-2 size-7 text-foreground" />
+              <div className="mb-2 flex h-10 w-10 items-center justify-center rounded-full bg-accent text-base font-bold">
+                {idx + 1}
+              </div>
+              <div className="font-semibold mb-1">{step.title}</div>
+              <div className="text-sm text-muted-foreground text-center">{step.desc}</div>
+            </div>
+          ))}
+        </div>
+      </section>
+      {/* Why Choose */}
+      <section className="mx-auto w-full max-w-7xl py-10">
+        <h2 className="text-2xl font-bold mb-6 text-center">Why Choose Us</h2>
+        <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-6">
+          {whyChoose.map((d) => (
+            <div key={d.title} className="border rounded-lg bg-background px-4 py-5 flex flex-col items-center">
+              <div className="font-bold text-2xl mb-1">{d.val}</div>
+              <div className="font-semibold mb-1 text-center">{d.title}</div>
+              <div className="text-xs text-muted-foreground text-center">{d.desc}</div>
+            </div>
+          ))}
+        </div>
+      </section>
+      {/* Our Services */}
+      <section className="mx-auto w-full max-w-7xl py-10">
+        <h2 className="text-2xl font-bold mb-6 text-center">What We Offer</h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-4">
+          {services.map((s) => (
+            <div key={s.title} className="rounded-lg border bg-background p-5 flex flex-col items-center">
+              <Icon icon={s.icon} className="size-6 mb-2 text-foreground" />
+              <div className="font-semibold text-base mb-1">{s.title}</div>
+              <div className="text-xs text-muted-foreground text-center">{s.desc}</div>
+            </div>
+          ))}
+        </div>
+      </section>
+      {/* Plans */}
+      <section className="mx-auto w-full max-w-7xl py-12">
+        <h2 className="text-2xl font-bold mb-8 text-center">Service Packages</h2>
+        <div className="flex flex-col md:flex-row gap-4 justify-center items-stretch">
+          {plans.map((plan) => (
             <Card
-              key={product.name}
-              className="group cursor-pointer border shadow-none transition-all duration-300 hover:scale-[1.02]"
-              as="a"
-              href={product.href}
-              target="_blank"
-              rel="noopener noreferrer">
-              <CardHeader className="pb-2">
-                <div className="flex items-center gap-3">
-                  <div className={`rounded-lg bg-gradient-to-r p-2.5 ${product.color} text-white`}>
-                    <product.icon className="size-5" />
-                  </div>
-                  <div className="flex-1">
-                    <h3 className="font-semibold text-lg">{product.name}</h3>
-                    <p className="text-muted-foreground text-xs">{product.description}</p>
-                  </div>
+              className={`flex-1 flex flex-col ${plan.popular ? "border-4 border-foreground" : "border"} py-8`}
+              key={plan.name}>
+              <div className="px-8 mb-4 flex-1 flex flex-col">
+                <div className="flex items-center justify-between">
+                  <div className="font-bold text-xl">{plan.name}</div>
+                  {plan.popular ? (
+                    <span className="bg-background text-primary text-xs px-2 py-1 rounded-full border">Popular</span>
+                  ) : null}
                 </div>
-              </CardHeader>
-              <CardBody className="pt-0">
-                <div className="space-y-1.5">
-                  {product.features.map((feature) => (
-                    <div key={feature} className="flex items-center gap-2">
-                      <div className="size-1 rounded-full bg-primary/60" />
-                      <span className="text-muted-foreground text-xs">{feature}</span>
-                    </div>
+                <div className="my-3 text-3xl font-extrabold">
+                  {plan.price}
+                  <span className="text-base font-medium"> /project</span>
+                </div>
+                <div className="mb-3 text-sm">{plan.subtitle}</div>
+                <ul className="mb-3 flex-1 list-disc pl-5 space-y-1 text-muted-foreground text-xs">
+                  {plan.features.map((f) => (
+                    <li key={f}>{f}</li>
                   ))}
-                </div>
-                <div className="mt-3 flex justify-end">
-                  <ExternalLink className="size-3.5 text-muted-foreground transition-colors group-hover:text-primary" />
-                </div>
-              </CardBody>
+                </ul>
+              </div>
+              <div className="px-8 pb-6 flex flex-col">
+                <a
+                  className="rounded bg-foreground text-background text-center py-2 font-semibold hover:opacity-90 transition"
+                  href="/">
+                  Contact Us
+                </a>
+              </div>
             </Card>
           ))}
         </div>
-
-        <div className="mt-12 text-center">
-          <div className="inline-flex items-center gap-2 rounded-full bg-muted/50 px-6 py-3">
-            <Globe className="size-5 text-muted-foreground" />
-            <span className="text-muted-foreground text-sm">
-              All products are designed and maintained by the LEAPERone team
-            </span>
-          </div>
+        <div className="mt-6 text-center text-xs text-muted-foreground">
+          All packages include supplier verification and support. Tell us your needs for a custom solution.
         </div>
-      </div>
-    </section>
-  );
-};
-
-const UserRecommendations = async () => {
-  const { t } = await createTranslation("home");
-
-  const RECOMMENDATIONS = [
-    {
-      id: 1,
-      avatar: "https://api.dicebear.com/7.x/lorelei/svg?seed=Sarah",
-      name: "Sarah",
-      role: "Bilibili Streamer",
-      content:
-        "BubbleBox's convenient setup simplified managing audience submissions during my livestreams. As a Bilibili streamer, I often receive tons of comments and stories, which used to be time-consuming to sort manually. With BubbleBox, I can easily categorize and share submissions one by one during the stream, and viewers say it's boosted their engagement—they're excited to keep participating.",
-    },
-    {
-      id: 2,
-      avatar: "https://api.dicebear.com/7.x/lorelei/svg?seed=Mike",
-      name: "Mike Zhang",
-      role: "Content Creator",
-      content:
-        "As a host of storytelling content, I often felt overwhelmed by sorting audience submissions individually. BubbleBox's collection and organization tools allow me to quickly categorize posts, making it easy to present each story during streams. Viewers are excited to submit content freely, which has greatly improved the interactivity and involvement in my show.",
-    },
-    {
-      id: 3,
-      avatar: "https://api.dicebear.com/7.x/lorelei/svg?seed=Emily",
-      name: "Emily Wang",
-      role: "Interactive Streamer",
-      content:
-        "BubbleBox's anonymous submission feature has made my livestreams more inclusive and engaging. My audience is diverse, and many viewers want to share personal stories while keeping their privacy. Since using BubbleBox, audience engagement has increased significantly, with more posts than ever, and the show has developed a warmer, more connected atmosphere.",
-    },
-    {
-      id: 4,
-      avatar: "https://api.dicebear.com/7.x/lorelei/svg?seed=David",
-      name: "David Liu",
-      role: "Live Host",
-      content:
-        "As an interactive host, I encourage my audience to express themselves during streams. Previously, organizing submissions manually was tedious, but BubbleBox's auto-categorization feature saves me tons of time. What surprised me is how well the display is optimized for OBS—large, clear fonts make viewers feel valued, and the quality of my content has noticeably improved.",
-    },
-    {
-      id: 5,
-      avatar: "https://api.dicebear.com/7.x/lorelei/svg?seed=Sophie",
-      name: "Sophie Lin",
-      role: "Community Manager",
-      content:
-        "Receiving audience submissions is part of my show, and BubbleBox's efficient design is exactly what I needed. Both the categorization and display are super convenient, letting me focus on presenting content without being bogged down by managing posts. Viewers love the seamless interaction, saying it makes them feel involved, and the entire atmosphere has become more vibrant.",
-    },
-    {
-      id: 6,
-      avatar: "https://api.dicebear.com/7.x/lorelei/svg?seed=Alex",
-      name: "Alex Wu",
-      role: "Content Creator",
-      content:
-        "Every submission I receive is a form of connection with my viewers, and manual sorting wasn't working. BubbleBox has automated the sorting and display process, keeping my streams smooth and well-paced. Viewers are thrilled by the real-time interaction and have started participating even more, creating a lively, welcoming stream environment.",
-    },
-    {
-      id: 7,
-      avatar: "https://api.dicebear.com/7.x/lorelei/svg?seed=Rachel",
-      name: "Rachel Chen",
-      role: "Live Streamer",
-      content:
-        "BubbleBox has brought a more positive and interactive vibe to my channel. Viewers enjoy the anonymous submission feature and are more comfortable sharing. Every submission gets categorized and displayed quickly, so everyone feels heard. This easy involvement format has brought in tons of great feedback, with audience engagement rising significantly.",
-    },
-    {
-      id: 8,
-      avatar: "https://api.dicebear.com/7.x/lorelei/svg?seed=Kevin",
-      name: "Kevin Zhao",
-      role: "Interactive Host",
-      content:
-        "Managing viewer submissions has always been challenging, but BubbleBox has solved this for me. Its straightforward interface allows quick categorization, saving me lots of time. Viewers find the submission link easy to use, and I'm able to interact instantly with everyone during the stream, leading to much higher viewer activity than before.",
-    },
-    {
-      id: 9,
-      avatar: "https://api.dicebear.com/7.x/lorelei/svg?seed=Lisa",
-      name: "Lisa Tang",
-      role: "Community Host",
-      content:
-        "Each stream requires handling various types of viewer submissions, and BubbleBox has provided me with a structured way to manage them. Using its collection and categorization features, I can efficiently organize viewer content, keeping the stream interactive and smooth. The audience loves the interaction, not only improving satisfaction but also bringing in more participants.",
-    },
-    {
-      id: 10,
-      avatar: "https://api.dicebear.com/7.x/lorelei/svg?seed=Tom",
-      name: "Tom Yang",
-      role: "Live Broadcaster",
-      content:
-        "I have a high level of audience interaction, and before, I had to manually collect and organize submissions, sometimes missing some. BubbleBox's submission collection and auto-categorization have made things much smoother, and viewers are enjoying the more structured experience. Submissions are clearly displayed on the stream screen, and people say it makes them feel part of the action, bringing even more energy to the channel.",
-    },
-  ];
-
-  return (
-    <section className="relative w-full bg-background/50 py-12">
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="mb-8 text-center">
-          <h2 className="font-bold text-4xl tracking-tight">{t("hero.subtitle")}</h2>
-        </div>
-
-        <Marquee className="py-8" pauseOnHover>
-          {RECOMMENDATIONS.map((item) => (
-            <div key={item.id} className="mx-4 w-[350px] rounded-xl border bg-card p-6 shadow-sm">
-              <div className="flex items-center gap-4">
-                <Avatar src={item.avatar} name={item.name} className="size-12" />
-                <div>
-                  <h3 className="font-semibold">{item.name}</h3>
-                  <p className="text-muted-foreground text-sm">{item.role}</p>
-                </div>
-              </div>
-              <p className="mt-4 line-clamp-4 text-muted-foreground text-sm">{item.content}</p>
+      </section>
+      {/* Testimonials */}
+      <section className="mx-auto w-full max-w-5xl py-16">
+        <h2 className="text-2xl font-bold mb-8 text-center">Clients Say</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {testimonials.map((item) => (
+            <div key={item.name + item.role} className="rounded-lg border bg-background p-6 flex flex-col">
+              <div className="mb-2 font-semibold">{item.name}</div>
+              <div className="mb-2 text-xs text-muted-foreground">{item.role}</div>
+              <div className="text-sm text-muted-foreground">{item.content}</div>
             </div>
           ))}
-        </Marquee>
-      </div>
-    </section>
+        </div>
+      </section>
+    </div>
   );
-};
+}
