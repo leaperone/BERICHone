@@ -1,10 +1,10 @@
-import NextAuth, { User } from 'next-auth';
+import NextAuth, { type User } from "next-auth";
 // import { PrismaAdapter } from '@auth/prisma-adapter';
-import Github from 'next-auth/providers/github';
+import Github from "next-auth/providers/github";
+
 // import { prisma } from '@/lib/db';
 
-
-declare module 'next-auth' {
+declare module "next-auth" {
   interface Session {
     user: {
       createdAt: Date;
@@ -15,20 +15,18 @@ declare module 'next-auth' {
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   // adapter: PrismaAdapter(prisma as any), // DB disabled
-  providers: [
-    Github,
-  ],
+  providers: [Github],
   callbacks: {
     async session({ session, user }) {
       // TODO: When get session, we need to do something
-      console.log('get session', session, user);
+      console.log("get session", session, user);
       return session;
     },
   },
   events: {
     async createUser({ user }) {
       // TODO: When create user, we need to do something
-      console.log('create user', user);
+      console.log("create user", user);
     },
   },
 });

@@ -1,50 +1,47 @@
-import { Home, LayoutDashboardIcon, LogOutIcon, Settings } from 'lucide-react';
+import { Home, LayoutDashboardIcon, LogOutIcon, Settings } from "lucide-react";
 
 import {
   Sidebar,
   SidebarContent,
+  SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
   SidebarGroupLabel,
-  SidebarMenu,
-  SidebarMenuItem,
-  SidebarMenuButton,
   SidebarHeader,
-  SidebarFooter,
-} from '@/components/ui/sidebar';
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+} from "@/components/ui/sidebar";
 
 // Menu items.
 const items = [
   {
-    title: 'Home',
-    url: '/',
+    title: "Home",
+    url: "/",
     icon: Home,
   },
   {
-    title: 'Dashboard',
-    url: '/dashboard',
+    title: "Dashboard",
+    url: "/dashboard",
     icon: LayoutDashboardIcon,
   },
 ];
 
 const sidebarFooterItems = [
   {
-    title: 'Sign Out',
-    url: '/signout',
+    title: "Sign Out",
+    url: "/signout",
     icon: LogOutIcon,
   },
   {
-    title: 'Settings',
-    url: '/dashboard/settings',
+    title: "Settings",
+    url: "/dashboard/settings",
     icon: Settings,
   },
 ];
 export async function DashboardSidebar() {
   return (
-    <Sidebar
-      side="left"
-      variant="floating"
-      collapsible="icon">
+    <Sidebar side="left" variant="floating" collapsible="icon">
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>

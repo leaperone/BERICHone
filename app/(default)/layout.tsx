@@ -1,7 +1,7 @@
-import { cn } from '@/lib/utils';
+import { cn } from "@/lib/utils";
 
-import Footer from './components/Footer';
-import Header from './components/Header';
+import Footer from "./components/Footer";
+import Header from "./components/Header";
 
 interface DefaultLayoutProps {
   children: React.ReactNode;
@@ -9,7 +9,7 @@ interface DefaultLayoutProps {
 
 export default function DefaultLayout({ children }: DefaultLayoutProps) {
   return (
-    <div className={cn('min-h-screen', 'bg-background text-foreground', 'flex flex-col')}>
+    <div className={cn("min-h-screen", "bg-background text-foreground", "flex flex-col")}>
       <Header />
       <main className="grow">{children}</main>
       <Footer />

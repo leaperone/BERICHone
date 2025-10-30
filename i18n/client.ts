@@ -1,14 +1,14 @@
-'use client';
+"use client";
 
-import { useEffect } from 'react';
-import i18next, { i18n } from 'i18next';
-import { initReactI18next, useTranslation as useTransAlias } from 'react-i18next';
-import resourcesToBackend from 'i18next-resources-to-backend';
-import LanguageDetector from 'i18next-browser-languagedetector';
-import { Locales, LANGUAGE_COOKIE, getOptions, supportedLocales } from './settings';
-import { useLocale } from './locale-provider';
+import i18next, { type i18n } from "i18next";
+import LanguageDetector from "i18next-browser-languagedetector";
+import resourcesToBackend from "i18next-resources-to-backend";
+import { useEffect } from "react";
+import { initReactI18next, useTranslation as useTransAlias } from "react-i18next";
+import { useLocale } from "./locale-provider";
+import { getOptions, LANGUAGE_COOKIE, type Locales, supportedLocales } from "./settings";
 
-const runsOnServerSide = typeof window === 'undefined';
+const runsOnServerSide = typeof window === "undefined";
 
 // Initialize i18next for the client side
 i18next
@@ -20,11 +20,11 @@ i18next
     lng: undefined, // detect the language on the client
     detection: {
       // We only care about the cookie
-      order: ['cookie'],
+      order: ["cookie"],
       // If `lookupCookie` is not set, it will use `i18next` as the cookie name
       lookupCookie: LANGUAGE_COOKIE,
       // This will automatically update the cookie
-      caches: ['cookie'],
+      caches: ["cookie"],
     },
     preload: runsOnServerSide ? supportedLocales : [],
   });

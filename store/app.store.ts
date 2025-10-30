@@ -1,12 +1,12 @@
-import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
+import { create } from "zustand";
+import { persist } from "zustand/middleware";
 
 interface AppState {
   username: string;
 }
 
 const initState: AppState = {
-  username: '',
+  username: "",
 };
 
 interface State extends AppState {
@@ -33,7 +33,7 @@ export const useAppStore = create(
       },
     }),
     {
-      name: 'app',
+      name: "app",
     },
   ),
 );

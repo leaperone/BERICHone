@@ -1,8 +1,8 @@
-'use client';
-import React from 'react';
-import { motion, useScroll, useTransform, useSpring, MotionValue } from 'framer-motion';
-import Image from 'next/image';
-import Link from 'next/link';
+"use client";
+import { type MotionValue, motion, useScroll, useSpring, useTransform } from "framer-motion";
+import Image from "next/image";
+import Link from "next/link";
+import React from "react";
 
 export const HeroParallax = ({
   products,
@@ -19,7 +19,7 @@ export const HeroParallax = ({
   const ref = React.useRef(null);
   const { scrollYProgress } = useScroll({
     target: ref,
-    offset: ['start start', 'end start'],
+    offset: ["start start", "end start"],
   });
 
   const springConfig = { stiffness: 300, damping: 30, bounce: 100 };
@@ -33,7 +33,7 @@ export const HeroParallax = ({
   return (
     <div
       ref={ref}
-      className="relative flex h-[300vh]  flex-col self-auto overflow-hidden py-40 antialiased [perspective:1000px] [transform-style:preserve-3d]">
+      className="relative flex h-[300vh] flex-col self-auto overflow-hidden py-40 antialiased [perspective:1000px] [transform-style:preserve-3d]">
       <Header />
       <motion.div
         style={{
@@ -45,29 +45,17 @@ export const HeroParallax = ({
         className="">
         <motion.div className="mb-20 flex flex-row-reverse space-x-20 space-x-reverse">
           {firstRow.map((product) => (
-            <ProductCard
-              product={product}
-              translate={translateX}
-              key={product.title}
-            />
+            <ProductCard product={product} translate={translateX} key={product.title} />
           ))}
         </motion.div>
-        <motion.div className="mb-20 flex  flex-row space-x-20 ">
+        <motion.div className="mb-20 flex flex-row space-x-20">
           {secondRow.map((product) => (
-            <ProductCard
-              product={product}
-              translate={translateXReverse}
-              key={product.title}
-            />
+            <ProductCard product={product} translate={translateXReverse} key={product.title} />
           ))}
         </motion.div>
         <motion.div className="flex flex-row-reverse space-x-20 space-x-reverse">
           {thirdRow.map((product) => (
-            <ProductCard
-              product={product}
-              translate={translateX}
-              key={product.title}
-            />
+            <ProductCard product={product} translate={translateX} key={product.title} />
           ))}
         </motion.div>
       </motion.div>
@@ -77,11 +65,11 @@ export const HeroParallax = ({
 
 export const Header = () => {
   return (
-    <div className="relative left-0 top-0 mx-auto w-full max-w-7xl px-4  py-20 md:py-40">
-      <h1 className="text-2xl font-bold dark:text-white md:text-7xl">
+    <div className="relative top-0 left-0 mx-auto w-full max-w-7xl px-4 py-20 md:py-40">
+      <h1 className="font-bold text-2xl md:text-7xl dark:text-white">
         这里 <br /> 放标题
       </h1>
-      <p className="mt-8 max-w-2xl text-base dark:text-neutral-200 md:text-xl">这里写一段描述就好</p>
+      <p className="mt-8 max-w-2xl text-base md:text-xl dark:text-neutral-200">这里写一段描述就好</p>
     </div>
   );
 };
@@ -107,9 +95,7 @@ export const ProductCard = ({
       }}
       key={product.title}
       className="group/product relative h-96 w-[30rem] shrink-0">
-      <Link
-        href={product.link}
-        className="block group-hover/product:shadow-2xl ">
+      <Link href={product.link} className="block group-hover/product:shadow-2xl">
         <Image
           src={product.thumbnail}
           height="600"

@@ -32,9 +32,9 @@ function HeroTextHover({ className }: { className?: string }) {
     },
   ];
   return (
-    <div className={cn("pt-4 relative min-h-[60px] w-full rounded-2xl", className)}>
+    <div className={cn("relative min-h-[60px] w-full rounded-2xl pt-4", className)}>
       <div className="flex flex-col items-center justify-center gap-3">
-        <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-2 p-4 text-2xl font-bold sm:text-3xl md:text-4xl lg:text-5xl">
+        <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-2 p-4 font-bold text-2xl sm:text-3xl md:text-4xl lg:text-5xl">
           {features.map((feature) => (
             <div key={feature.text} className="group relative flex items-center">
               <span
@@ -208,12 +208,12 @@ export default function HomePage() {
   return (
     <div className="flex min-h-screen flex-col bg-background text-foreground">
       {/* Hero Section */}
-      <section className="hero-container relative w-full bg-background flex flex-col items-center pb-6 pt-16">
+      <section className="hero-container relative flex w-full flex-col items-center bg-background pt-16 pb-6">
         <Chip size="lg" variant="flat" color="success" startContent={<CheckIcon />}>
           Beta
         </Chip>
         <HeroTextHover />
-        <p className="mb-8 w-full max-w-2xl animate-fadeIn text-center text-lg leading-8 text-foreground-600">
+        <p className="mb-8 w-full max-w-2xl animate-fadeIn text-center text-foreground-600 text-lg leading-8">
           Let us help you find trusted suppliers, ensure quality and deliver on time.
         </p>
         <Button
@@ -226,9 +226,9 @@ export default function HomePage() {
         </Button>
       </section>
       {/* Banner */}
-      <section className="w-full text-center py-4">
-        <div className="text-lg text-muted-foreground font-semibold">Trusted by 100+ Companies</div>
-        <div className="mt-2 text-2xl font-extrabold tracking-tight">Sourcing, Quality, Delivery — All In One</div>
+      <section className="w-full py-4 text-center">
+        <div className="font-semibold text-lg text-muted-foreground">Trusted by 100+ Companies</div>
+        <div className="mt-2 font-extrabold text-2xl tracking-tight">Sourcing, Quality, Delivery — All In One</div>
         <div className="mx-auto mt-2 max-w-xl text-base text-muted-foreground">
           We handle factory checks, negotiation, quality inspection, and international shipping for you, from start to
           finish.
@@ -236,75 +236,75 @@ export default function HomePage() {
       </section>
       {/* How It Works */}
       <section className="mx-auto w-full max-w-5xl py-10">
-        <h2 className="text-2xl font-bold mb-6 text-center">How It Works</h2>
+        <h2 className="mb-6 text-center font-bold text-2xl">How It Works</h2>
         <div className="grid grid-cols-1 gap-6 md:grid-cols-4">
           {howItWorks.map((step, idx) => (
-            <div key={step.title} className="flex flex-col items-center border bg-background rounded-lg px-6 py-6">
+            <div key={step.title} className="flex flex-col items-center rounded-lg border bg-background px-6 py-6">
               <Icon icon={step.icon} className="mb-2 size-7 text-foreground" />
-              <div className="mb-2 flex h-10 w-10 items-center justify-center rounded-full bg-accent text-base font-bold">
+              <div className="mb-2 flex h-10 w-10 items-center justify-center rounded-full bg-accent font-bold text-base">
                 {idx + 1}
               </div>
-              <div className="font-semibold mb-1">{step.title}</div>
-              <div className="text-sm text-muted-foreground text-center">{step.desc}</div>
+              <div className="mb-1 font-semibold">{step.title}</div>
+              <div className="text-center text-muted-foreground text-sm">{step.desc}</div>
             </div>
           ))}
         </div>
       </section>
       {/* Why Choose */}
       <section className="mx-auto w-full max-w-7xl py-10">
-        <h2 className="text-2xl font-bold mb-6 text-center">Why Choose Us</h2>
+        <h2 className="mb-6 text-center font-bold text-2xl">Why Choose Us</h2>
         <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-6">
           {whyChoose.map((d) => (
-            <div key={d.title} className="border rounded-lg bg-background px-4 py-5 flex flex-col items-center">
-              <div className="font-bold text-2xl mb-1">{d.val}</div>
-              <div className="font-semibold mb-1 text-center">{d.title}</div>
-              <div className="text-xs text-muted-foreground text-center">{d.desc}</div>
+            <div key={d.title} className="flex flex-col items-center rounded-lg border bg-background px-4 py-5">
+              <div className="mb-1 font-bold text-2xl">{d.val}</div>
+              <div className="mb-1 text-center font-semibold">{d.title}</div>
+              <div className="text-center text-muted-foreground text-xs">{d.desc}</div>
             </div>
           ))}
         </div>
       </section>
       {/* Our Services */}
       <section className="mx-auto w-full max-w-7xl py-10">
-        <h2 className="text-2xl font-bold mb-6 text-center">What We Offer</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-4">
+        <h2 className="mb-6 text-center font-bold text-2xl">What We Offer</h2>
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-3 lg:grid-cols-6">
           {services.map((s) => (
-            <div key={s.title} className="rounded-lg border bg-background p-5 flex flex-col items-center">
-              <Icon icon={s.icon} className="size-6 mb-2 text-foreground" />
-              <div className="font-semibold text-base mb-1">{s.title}</div>
-              <div className="text-xs text-muted-foreground text-center">{s.desc}</div>
+            <div key={s.title} className="flex flex-col items-center rounded-lg border bg-background p-5">
+              <Icon icon={s.icon} className="mb-2 size-6 text-foreground" />
+              <div className="mb-1 font-semibold text-base">{s.title}</div>
+              <div className="text-center text-muted-foreground text-xs">{s.desc}</div>
             </div>
           ))}
         </div>
       </section>
       {/* Plans */}
       <section className="mx-auto w-full max-w-7xl py-12">
-        <h2 className="text-2xl font-bold mb-8 text-center">Service Packages</h2>
-        <div className="flex flex-col md:flex-row gap-4 justify-center items-stretch">
+        <h2 className="mb-8 text-center font-bold text-2xl">Service Packages</h2>
+        <div className="flex flex-col items-stretch justify-center gap-4 md:flex-row">
           {plans.map((plan) => (
             <Card
-              className={`flex-1 flex flex-col ${plan.popular ? "border-4 border-foreground" : "border"} py-8`}
+              className={`flex flex-1 flex-col ${plan.popular ? "border-4 border-foreground" : "border"} py-8`}
               key={plan.name}>
-              <div className="px-8 mb-4 flex-1 flex flex-col">
+              <div className="mb-4 flex flex-1 flex-col px-8">
                 <div className="flex items-center justify-between">
                   <div className="font-bold text-xl">{plan.name}</div>
                   {plan.popular ? (
-                    <span className="bg-background text-primary text-xs px-2 py-1 rounded-full border">Popular</span>
+                    <span className="rounded-full border bg-background px-2 py-1 text-primary text-xs">Popular</span>
                   ) : null}
                 </div>
-                <div className="my-3 text-3xl font-extrabold">
+                <div className="my-3 font-extrabold text-3xl">
                   {plan.price}
-                  <span className="text-base font-medium"> /project</span>
+                  <span className="font-medium text-base"> /project</span>
                 </div>
                 <div className="mb-3 text-sm">{plan.subtitle}</div>
-                <ul className="mb-3 flex-1 list-disc pl-5 space-y-1 text-muted-foreground text-xs">
+                <ul className="mb-3 flex-1 list-disc space-y-1 pl-5 text-muted-foreground text-xs">
                   {plan.features.map((f) => (
                     <li key={f}>{f}</li>
                   ))}
                 </ul>
               </div>
-              <div className="px-8 pb-6 flex flex-col">
+              <div className="flex flex-col px-8 pb-6">
                 <a
-                  className="rounded bg-foreground text-background text-center py-2 font-semibold hover:opacity-90 transition"
+                  className="rounded bg-foreground py-2 text-center font-semibold text-background transition hover:opacity-90"
                   href="/">
                   Contact Us
                 </a>
@@ -312,19 +312,19 @@ export default function HomePage() {
             </Card>
           ))}
         </div>
-        <div className="mt-6 text-center text-xs text-muted-foreground">
+        <div className="mt-6 text-center text-muted-foreground text-xs">
           All packages include supplier verification and support. Tell us your needs for a custom solution.
         </div>
       </section>
       {/* Testimonials */}
       <section className="mx-auto w-full max-w-5xl py-16">
-        <h2 className="text-2xl font-bold mb-8 text-center">Clients Say</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <h2 className="mb-8 text-center font-bold text-2xl">Clients Say</h2>
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
           {testimonials.map((item) => (
-            <div key={item.name + item.role} className="rounded-lg border bg-background p-6 flex flex-col">
+            <div key={item.name + item.role} className="flex flex-col rounded-lg border bg-background p-6">
               <div className="mb-2 font-semibold">{item.name}</div>
-              <div className="mb-2 text-xs text-muted-foreground">{item.role}</div>
-              <div className="text-sm text-muted-foreground">{item.content}</div>
+              <div className="mb-2 text-muted-foreground text-xs">{item.role}</div>
+              <div className="text-muted-foreground text-sm">{item.content}</div>
             </div>
           ))}
         </div>

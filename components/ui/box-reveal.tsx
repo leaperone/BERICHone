@@ -10,17 +10,10 @@ interface BoxRevealProps {
   duration?: number;
 }
 
-export function BoxReveal({
-  children,
-  className,
-  boxColor = "#5046e6",
-  duration = 0.5,
-}: BoxRevealProps) {
+export function BoxReveal({ children, className, boxColor = "#5046e6", duration = 0.5 }: BoxRevealProps) {
   return (
     <div className="relative">
-      <div className={cn("relative z-10", className)}>
-        {children}
-      </div>
+      <div className={cn("relative z-10", className)}>{children}</div>
       <motion.div
         initial={{ left: "0%" }}
         animate={{ left: "100%" }}

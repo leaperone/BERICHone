@@ -1,8 +1,8 @@
-import { SidebarProvider } from '@/components/ui/sidebar';
-import React from 'react';
-import { DashboardSidebar } from './SideBar';
-import { redirect } from 'next/navigation';
-import { auth } from '@/auth';
+import { redirect } from "next/navigation";
+import type React from "react";
+import { auth } from "@/auth";
+import { SidebarProvider } from "@/components/ui/sidebar";
+import { DashboardSidebar } from "./SideBar";
 
 export default async function DashboardLayout({
   children,
@@ -11,7 +11,7 @@ export default async function DashboardLayout({
 }>) {
   const session = await auth();
   if (!session) {
-    redirect('/signin');
+    redirect("/signin");
   }
   return (
     <div className="flex h-screen w-full overflow-y-hidden">
