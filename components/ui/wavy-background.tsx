@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import { createNoise3D } from "simplex-noise";
 import { cn } from "@/lib/utils";
 
@@ -41,20 +41,7 @@ export const WavyBackground = ({
     }
   };
 
-  const init = () => {
-    canvas = canvasRef.current;
-    ctx = canvas.getContext("2d");
-    w = ctx.canvas.width = window.innerWidth;
-    h = ctx.canvas.height = window.innerHeight;
-    ctx.filter = `blur(${blur}px)`;
-    nt = 0;
-    window.onresize = () => {
-      w = ctx.canvas.width = window.innerWidth;
-      h = ctx.canvas.height = window.innerHeight;
-      ctx.filter = `blur(${blur}px)`;
-    };
-    render();
-  };
+  const animationIdRef = useRef<number | null>(null);
 
   const waveColors = colors ?? ["#38bdf8", "#818cf8", "#c084fc", "#e879f9", "#22d3ee"];
   const drawWave = (n: number) => {
@@ -72,22 +59,45 @@ export const WavyBackground = ({
     }
   };
 
-  let animationId: number;
-  const render = () => {
-    ctx.fillStyle = backgroundFill || "black";
-    ctx.globalAlpha = waveOpacity || 0.5;
-    ctx.fillRect(0, 0, w, h);
-    drawWave(5);
-    animationId = requestAnimationFrame(render);
-  };
+  const init = useCallback(() => {
+    canvas = canvasRef.current;
+    if (!canvas) return;
+    ctx = canvas.getContext("2d");
+    if (!ctx) return;
+    w = ctx.canvas.width = window.innerWidth;
+    h = ctx.canvas.height = window.innerHeight;
+    ctx.filter = `blur(${blur}px)`;
+    nt = 0;
+    const handleResize = () => {
+      w = ctx.canvas.width = window.innerWidth;
+      h = ctx.canvas.height = window.innerHeight;
+      ctx.filter = `blur(${blur}px)`;
+    };
+    window.addEventListener("resize", handleResize);
+
+    const render = () => {
+      ctx.fillStyle = backgroundFill || "black";
+      ctx.globalAlpha = waveOpacity || 0.5;
+      ctx.fillRect(0, 0, w, h);
+      drawWave(5);
+      animationIdRef.current = requestAnimationFrame(render);
+    };
+
+    render();
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      if (animationIdRef.current != null) cancelAnimationFrame(animationIdRef.current);
+    };
+  }, [backgroundFill, blur, waveOpacity]);
 
   useEffect(() => {
-    init();
+    const cleanup = init();
     return () => {
-      cancelAnimationFrame(animationId);
+      if (cleanup) cleanup();
+      else if (animationIdRef.current != null) cancelAnimationFrame(animationIdRef.current);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [animationId, init]);
+  }, [init]);
 
   const [isSafari, setIsSafari] = useState(false);
   useEffect(() => {
