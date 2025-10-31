@@ -2,7 +2,6 @@ import { Button, Card, Chip } from "@heroui/react";
 import { Icon } from "@iconify/react";
 import { CheckIcon } from "lucide-react";
 import Link from "next/link";
-import Marquee from "@/components/ui/marquee";
 import { cn } from "@/lib/utils";
 
 function HeroTextHover({ className }: { className?: string }) {
@@ -316,53 +315,6 @@ export default function HomePage() {
             </div>
           ))}
         </div>
-      </section>
-      {/* Featured Partners / Success Stories - Marquee Section */}
-      <section className="w-full overflow-hidden bg-background py-16 md:py-24">
-        <div className="mb-8 text-center">
-          <h2 className="mb-3 font-bold text-3xl text-foreground md:text-4xl">Trusted Partners & Success Stories</h2>
-          <p className="mx-auto max-w-2xl text-muted-foreground text-sm md:text-base">
-            Join thousands of businesses sourcing from China with confidence
-          </p>
-        </div>
-        <Marquee pauseOnHover className="[--duration:30s]">
-          {[
-            { name: "Global Electronics Inc.", icon: "fluent-emoji:factory", category: "Electronics" },
-            { name: "Fashion Forward Ltd.", icon: "fluent-emoji:shopping-bags", category: "Fashion" },
-            { name: "Home Essentials Co.", icon: "fluent-emoji:house", category: "Home Goods" },
-            { name: "Tech Solutions Group", icon: "fluent-emoji:laptop", category: "Technology" },
-            { name: "Beauty Products Intl.", icon: "fluent-emoji:lipstick", category: "Beauty" },
-            { name: "Sports Equipment Plus", icon: "fluent-emoji:soccer-ball", category: "Sports" },
-            { name: "Automotive Parts Ltd.", icon: "fluent-emoji:car", category: "Automotive" },
-            { name: "Medical Supplies Co.", icon: "fluent-emoji:medical-symbol", category: "Medical" },
-          ].map((partner) => (
-            <div
-              key={partner.name}
-              className="mx-4 flex w-64 shrink-0 flex-col items-center justify-center rounded-lg border bg-background px-8 py-10 transition-transform hover:scale-105">
-              <Icon icon={partner.icon} className="mb-4 size-12 text-foreground" />
-              <div className="mb-2 text-center font-semibold text-base text-foreground">{partner.name}</div>
-              <div className="text-center text-muted-foreground text-xs">{partner.category}</div>
-            </div>
-          ))}
-        </Marquee>
-        <Marquee reverse pauseOnHover className="mt-6 [--duration:35s]">
-          {[
-            { stat: "10,000+", label: "Verified Suppliers", icon: "fluent-emoji:factory" },
-            { stat: "50+", label: "Countries Served", icon: "fluent-emoji:globe-showing-americas" },
-            { stat: "$500M+", label: "Annual Trade Volume", icon: "fluent-emoji:money-bag" },
-            { stat: "99.8%", label: "Quality Pass Rate", icon: "fluent-emoji:check-mark-button" },
-            { stat: "24/7", label: "Support Available", icon: "fluent-emoji:telephone" },
-            { stat: "2h", label: "Average Response", icon: "fluent-emoji:alarm-clock" },
-          ].map((item) => (
-            <div
-              key={item.label}
-              className="mx-4 flex w-64 shrink-0 flex-col items-center justify-center rounded-lg border bg-background px-8 py-10 transition-transform hover:scale-105">
-              <Icon icon={item.icon} className="mb-4 size-12 text-foreground" />
-              <div className="mb-2 font-bold text-2xl text-foreground">{item.stat}</div>
-              <div className="text-center text-muted-foreground text-xs">{item.label}</div>
-            </div>
-          ))}
-        </Marquee>
       </section>
       {/* Plans */}
       <section className="mx-auto w-full max-w-7xl px-4 py-16 sm:px-6">
