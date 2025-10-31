@@ -155,17 +155,21 @@ export default function Header() {
 }
 
 function LoginUserBtn() {
-  return (
-    <Button as={Link} href="/signin" size="sm">
-      Sign In
-    </Button>
-  );
+  // Original content preserved for reference:
+  // return (
+  //   <Button as={Link} href="/signin" size="sm">
+  //     Sign In
+  //   </Button>
+  // );
+  return null;
 }
 
 function LoginUserBtnMobile() {
-  return (
-    <Link className="w-full" color="primary" href="/signin" size="lg">
-      Sign In
-    </Link>
-  );
+  // Original content preserved for reference:
+  // return (
+  //   <Link className="w-full" color="primary" href="/signin" size="lg">
+  //     Sign In
+  //   </Link>
+  // );
+  return null;
 }

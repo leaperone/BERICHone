@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useEffect } from "react";
 
-export default function Error({ error, reset }: { error: Error & { digest?: string }; reset: () => void }) {
+export default function GlobalError({ error, reset }: { error: Error & { digest?: string }; reset: () => void }) {
   useEffect(() => {
     // Log the error to an error reporting service
     console.error(error);
@@ -30,6 +30,7 @@ export default function Error({ error, reset }: { error: Error & { digest?: stri
           </Link>
 
           <button
+            type="button"
             onClick={
               // Attempt to recover by trying to re-render the segment
               () => reset()

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
-import { useEffect, useRef, useState, useCallback } from "react";
+import { useEffect, useRef, useState } from "react";
 import { createNoise3D } from "simplex-noise";
 import { cn } from "@/lib/utils";
 
@@ -16,7 +16,7 @@ export const WavyBackground = ({
   waveOpacity = 0.5,
   ...props
 }: {
-  children?: any;
+  children?: React.ReactNode;
   className?: string;
   containerClassName?: string;
   colors?: string[];
@@ -25,10 +25,10 @@ export const WavyBackground = ({
   blur?: number;
   speed?: "slow" | "fast";
   waveOpacity?: number;
-  [key: string]: any;
+  [key: string]: unknown;
 }) => {
   const noise = createNoise3D();
-  let w: number, h: number, nt: number, i: number, x: number, ctx: any, canvas: any;
+  let w: number, h: number, nt: number, i: number, x: number, ctx: CanvasRenderingContext2D, canvas: HTMLCanvasElement | null;
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const getSpeed = () => {
     switch (speed) {
@@ -59,10 +59,10 @@ export const WavyBackground = ({
     }
   };
 
-  const init = useCallback(() => {
+  const init = () => {
     canvas = canvasRef.current;
     if (!canvas) return;
-    ctx = canvas.getContext("2d");
+    ctx = canvas.getContext("2d")!;
     if (!ctx) return;
     w = ctx.canvas.width = window.innerWidth;
     h = ctx.canvas.height = window.innerHeight;
@@ -89,7 +89,7 @@ export const WavyBackground = ({
       window.removeEventListener("resize", handleResize);
       if (animationIdRef.current != null) cancelAnimationFrame(animationIdRef.current);
     };
-  }, [backgroundFill, blur, waveOpacity]);
+  };
 
   useEffect(() => {
     const cleanup = init();
@@ -97,7 +97,8 @@ export const WavyBackground = ({
       if (cleanup) cleanup();
       else if (animationIdRef.current != null) cancelAnimationFrame(animationIdRef.current);
     };
-  }, [init]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [backgroundFill, blur, waveOpacity]);
 
   const [isSafari, setIsSafari] = useState(false);
   useEffect(() => {

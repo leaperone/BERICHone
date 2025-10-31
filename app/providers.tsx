@@ -12,7 +12,7 @@ export async function Providers({ children }: { children: React.ReactNode }) {
     // <SessionProvider session={session}>
     <HeroUIProvider>
       <LocaleProvider value={locale}>
-        <NextThemesProvider attribute="class" defaultTheme="dark">
+        <NextThemesProvider attribute="class" defaultTheme="light">
           {children}
         </NextThemesProvider>
       </LocaleProvider>

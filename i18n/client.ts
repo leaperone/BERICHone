@@ -38,11 +38,9 @@ export function useTranslation(ns: string) {
   // Run content is being rendered on server side
   if (runsOnServerSide && lng && i18n.resolvedLanguage !== lng) {
     i18n.changeLanguage(lng);
-  } else {
-    // Use our custom implementation when running on client side
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    useCustomTranslationImplem(i18n, lng);
   }
+  // Always run client-side sync via hook; on server, useEffect is a no-op
+  useCustomTranslationImplem(i18n, lng as Locales);
   return translator;
 }
 

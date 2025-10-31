@@ -48,17 +48,18 @@ export const CardContainer = ({
         style={{
           perspective: "1000px",
         }}>
-        <div
+        <section
           ref={containerRef}
           onMouseEnter={handleMouseEnter}
           onMouseMove={handleMouseMove}
           onMouseLeave={handleMouseLeave}
+          aria-label="3d card"
           className={cn("relative flex items-center justify-center transition-all duration-200 ease-linear", className)}
           style={{
             transformStyle: "preserve-3d",
           }}>
           {children}
-        </div>
+        </section>
       </div>
     </MouseEnterContext.Provider>
   );
@@ -93,7 +94,7 @@ export const CardItem = ({
   rotateX?: number | string;
   rotateY?: number | string;
   rotateZ?: number | string;
-  [key: string]: any;
+  [key: string]: unknown;
 }) => {
   const ref = useRef<HTMLDivElement>(null);
   const [isMouseEntered] = useMouseEnter();

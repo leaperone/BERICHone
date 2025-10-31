@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 
 export const BackgroundGradientAnimation = ({
@@ -90,15 +90,18 @@ export const BackgroundGradientAnimation = ({
     setIsSafari(/^((?!chrome|android).)*safari/i.test(navigator.userAgent));
   }, []);
 
+  const blurId = useId();
+
   return (
     <div
       className={cn(
         "relative top-0 left-0 h-screen w-screen overflow-hidden bg-[linear-gradient(40deg,var(--gradient-background-start),var(--gradient-background-end))]",
         containerClassName,
       )}>
-      <svg className="hidden">
+      <svg className="hidden" aria-hidden="true">
+        <title>background blur filter</title>
         <defs>
-          <filter id="blurMe">
+          <filter id={blurId}>
             <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
             <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -8" result="goo" />
             <feBlend in="SourceGraphic" in2="goo" />
@@ -109,7 +112,7 @@ export const BackgroundGradientAnimation = ({
       <div
         className={cn(
           "gradients-container h-full w-full blur-lg",
-          isSafari ? "blur-2xl" : "[filter:url(#blurMe)_blur(40px)]",
+          isSafari ? "blur-2xl" : `[filter:url(#${blurId})_blur(40px)]`,
         )}>
         <div
           className={cn(
@@ -156,6 +159,7 @@ export const BackgroundGradientAnimation = ({
           <div
             ref={interactiveRef}
             onMouseMove={handleMouseMove}
+            role="application"
             className={cn(
               `absolute [background:radial-gradient(circle_at_center,_rgba(var(--pointer-color),_0.8)_0,_rgba(var(--pointer-color),_0)_50%)_no-repeat]`,
               `-top-1/2 -left-1/2 h-full w-full [mix-blend-mode:var(--blending-value)]`,

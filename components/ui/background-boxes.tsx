@@ -1,12 +1,12 @@
 /* eslint-disable tailwindcss/enforces-negative-arbitrary-values */
 "use client";
 import { motion } from "framer-motion";
-import React from "react";
+import React, { useMemo } from "react";
 import { cn } from "@/lib/utils";
 
 export const BoxesCore = ({ className, ...rest }: { className?: string }) => {
-  const rows = new Array(150).fill(1);
-  const cols = new Array(100).fill(1);
+  const rowIds = useMemo(() => Array.from({ length: 150 }, (_, i) => `row-${i}`), []);
+  const colIds = useMemo(() => Array.from({ length: 100 }, (_, j) => `col-${j}`), []);
   const colors = [
     "--sky-300",
     "--pink-300",
@@ -32,9 +32,9 @@ export const BoxesCore = ({ className, ...rest }: { className?: string }) => {
         className,
       )}
       {...rest}>
-      {rows.map((_, i) => (
-        <motion.div key={`row${i}`} className="relative h-8 w-16 border-slate-700 border-l">
-          {cols.map((_, j) => (
+      {rowIds.map((rowId, i) => (
+        <motion.div key={rowId} className="relative h-8 w-16 border-slate-700 border-l">
+          {colIds.map((colId, j) => (
             <motion.div
               whileHover={{
                 backgroundColor: `var(${getRandomColor()})`,
@@ -43,7 +43,7 @@ export const BoxesCore = ({ className, ...rest }: { className?: string }) => {
               animate={{
                 transition: { duration: 2 },
               }}
-              key={`col${j}`}
+              key={`${rowId}-${colId}`}
               className="relative h-8 w-16 border-slate-700 border-t border-r">
               {j % 2 === 0 && i % 2 === 0 ? (
                 <svg
@@ -53,6 +53,7 @@ export const BoxesCore = ({ className, ...rest }: { className?: string }) => {
                   strokeWidth="1.5"
                   stroke="currentColor"
                   className="-left-[22px] -top-[14px] pointer-events-none absolute h-6 w-10 stroke-[1px] text-slate-700">
+                  <title>Plus</title>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v12m6-6H6" />
                 </svg>
               ) : null}

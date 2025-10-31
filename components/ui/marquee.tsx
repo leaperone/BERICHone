@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils";
+import { useMemo } from "react";
 
 interface MarqueeProps {
   className?: string;
@@ -19,6 +20,7 @@ export default function Marquee({
   repeat = 4,
   ...props
 }: MarqueeProps) {
+  const slots = useMemo(() => Array.from({ length: repeat }, (_, i) => `slot-${i}`), [repeat]);
   return (
     <div
       {...props}
@@ -30,11 +32,9 @@ export default function Marquee({
         },
         className,
       )}>
-      {Array(repeat)
-        .fill(0)
-        .map((_, i) => (
+      {slots.map((slotId) => (
           <div
-            key={i}
+            key={slotId}
             className={cn("flex shrink-0 justify-around [gap:var(--gap)]", {
               "animate-marquee flex-row": !vertical,
               "animate-marquee-vertical flex-col": vertical,

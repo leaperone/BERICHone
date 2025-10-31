@@ -17,7 +17,7 @@ interface NeonGradientCardProps {
    * @description
    * The component to be rendered as the card
    * */
-  as?: ReactElement<any>;
+  as?: ReactElement<unknown>;
   /**
    * @default ""
    * @type string
@@ -58,7 +58,7 @@ interface NeonGradientCardProps {
    * */
   neonColors?: NeonColorsProps;
 
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 const NeonGradientCard: React.FC<NeonGradientCardProps> = ({

@@ -97,7 +97,9 @@ const ScrollingBanner = React.forwardRef<HTMLDivElement, ScrollingBannerProps>(
             "[animation-direction:reverse]": isReverse,
             "hover:[animation-play-state:paused]": shouldPauseOnHover,
           })}>
-          {React.Children.map(children, (child) => React.cloneElement(child as unknown as React.ReactElement<any>))}
+          {React.Children.map(children, (child) =>
+            React.isValidElement(child) ? React.cloneElement(child as React.ReactElement<unknown>) : child,
+          )}
         </div>
       </ScrollShadow>
     );

@@ -2,8 +2,11 @@
 @import "../node_modules/react-grid-layout/css/styles.css";
 @import "../node_modules/react-resizable/css/styles.css";
 
+/* biome-ignore lint/suspicious/noUnknownAtRules: Tailwind directive */
 @tailwind base;
+/* biome-ignore lint/suspicious/noUnknownAtRules: Tailwind directive */
 @tailwind components;
+/* biome-ignore lint/suspicious/noUnknownAtRules: Tailwind directive */
 @tailwind utilities;
 
 @layer base {
@@ -71,10 +74,12 @@
 
 @layer base {
   * {
+    /* biome-ignore lint/suspicious/noUnknownAtRules: Tailwind apply */
     @apply border-border;
   }
 
   body {
+    /* biome-ignore lint/suspicious/noUnknownAtRules: Tailwind apply */
     @apply bg-background text-foreground;
   }
 }

@@ -1,4 +1,5 @@
 import type { SVGProps } from "react";
+import { useId } from "react";
 
 export interface SafariProps extends SVGProps<SVGSVGElement> {
   url?: string;
@@ -8,6 +9,8 @@ export interface SafariProps extends SVGProps<SVGSVGElement> {
 }
 
 export default function Safari({ src, url, width = 1203, height = 753, ...props }: SafariProps) {
+  const clipPathId = useId();
+  const roundedId = useId();
   return (
     <svg
       width={width}
@@ -16,7 +19,8 @@ export default function Safari({ src, url, width = 1203, height = 753, ...props 
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       {...props}>
-      <g clipPath="url(#path0)">
+      <title>Safari window mockup</title>
+      <g clipPath={`url(#${clipPathId})`}>
         <path
           d="M0 52H1202V741C1202 747.627 1196.63 753 1190 753H12C5.37258 753 0 747.627 0 741V52Z"
           className="fill-[#E5E5E5] dark:fill-[#404040]"
@@ -106,14 +110,14 @@ export default function Safari({ src, url, width = 1203, height = 753, ...props 
           x="1"
           y="52"
           preserveAspectRatio="xMidYMid slice"
-          clipPath="url(#roundedBottom)"
+          clipPath={`url(#${roundedId})`}
         />
       </g>
       <defs>
-        <clipPath id="path0">
+        <clipPath id={clipPathId}>
           <rect width={width} height={height} fill="white" />
         </clipPath>
-        <clipPath id="roundedBottom">
+        <clipPath id={roundedId}>
           <path d="M1 52H1201V741C1201 747.075 1196.08 752 1190 752H12C5.92486 752 1 747.075 1 741V52Z" fill="white" />
         </clipPath>
       </defs>
