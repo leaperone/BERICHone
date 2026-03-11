@@ -1,57 +1,56 @@
-"use client";
+'use client';
 
 import {
-  Button,
-  Dropdown,
-  DropdownItem,
-  DropdownMenu,
-  DropdownTrigger,
-  Link,
   Navbar,
   NavbarBrand,
   NavbarContent,
   NavbarItem,
+  NavbarMenuToggle,
   NavbarMenu,
   NavbarMenuItem,
-  NavbarMenuToggle,
-} from "@heroui/react";
-import { ChevronDown, FileText, LayoutDashboard, MenuIcon, Wrench } from "lucide-react";
-import type React from "react";
-import { useState } from "react";
+  Button,
+  Dropdown,
+  DropdownTrigger,
+  DropdownMenu,
+  DropdownItem,
+  Link,
+} from '@heroui/react';
+import { LayoutDashboard, FileText, Wrench, MenuIcon, ChevronDown } from 'lucide-react';
+import React, { useState } from 'react';
 
-import { BrandLogo, BrandName } from "@/components/Brand";
-import { ThemeSwitcher } from "@/components/ThemeSwitcher";
+import { BrandLogo, BrandName } from '@/components/Brand';
+import { ThemeSwitcher } from '@/components/ThemeSwitcher';
 
 const dashboardItems: { title: string; icon: React.ElementType; href: string; description: string }[] = [
   {
-    title: "Tools",
+    title: 'Tools',
     icon: Wrench,
-    href: "/tools",
-    description: "Your best toolbox",
+    href: '/tools',
+    description: 'Your best toolbox',
   },
   {
-    title: "Docs",
+    title: 'Docs',
     icon: FileText,
-    href: "/docs",
-    description: "Project documentation and guides",
+    href: '/docs',
+    description: 'Project documentation and guides',
   },
 ];
 
 const menuItems = [
   {
-    title: "Dashboard",
+    title: 'Dashboard',
     icon: LayoutDashboard,
-    href: "/dashboard",
+    href: '/dashboard',
   },
   {
-    title: "Tools",
+    title: 'Tools',
     icon: Wrench,
-    href: "/tools",
+    href: '/tools',
   },
   {
-    title: "Docs",
+    title: 'Docs',
     icon: FileText,
-    href: "/docs",
+    href: '/docs',
   },
 ];
 
@@ -59,9 +58,15 @@ export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <Navbar maxWidth="full" height="2.5rem" onMenuOpenChange={setIsMenuOpen}>
+    <Navbar
+      maxWidth="full"
+      height="2.5rem"
+      onMenuOpenChange={setIsMenuOpen}>
       <NavbarContent>
-        <NavbarMenuToggle aria-label={isMenuOpen ? "Close menu" : "Open menu"} className="sm:hidden" />
+        <NavbarMenuToggle
+          aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
+          className="sm:hidden"
+        />
         <NavbarBrand>
           <Link href="/">
             <BrandLogo />
@@ -69,9 +74,14 @@ export default function Header() {
           </Link>
         </NavbarBrand>
       </NavbarContent>
-      <NavbarContent className="mx-auto hidden w-fit justify-between gap-6 sm:flex" justify="center">
+      <NavbarContent
+        className="mx-auto hidden w-fit justify-between gap-6 sm:flex"
+        justify="center">
         <NavbarItem>
-          <Link color="foreground" href="/dashboard" className="flex items-center gap-2 text-xs">
+          <Link
+            color="foreground"
+            href="/dashboard"
+            className="flex items-center gap-2 text-xs">
             <LayoutDashboard className="size-4" />
             Dashboard
           </Link>
@@ -92,8 +102,8 @@ export default function Header() {
             <DropdownMenu
               aria-label="Features menu"
               itemClasses={{
-                base: "gap-4 text-foreground text-lg font-bold",
-                description: "text-foreground/50 text-xs font-light",
+                base: 'gap-4 text-foreground text-lg font-bold',
+                description: 'text-foreground/50 text-xs font-light',
               }}>
               {dashboardItems.map((item) => (
                 <DropdownItem
@@ -110,14 +120,20 @@ export default function Header() {
         </NavbarItem>
 
         <NavbarItem>
-          <Link color="foreground" href="/about" className="flex items-center gap-2 text-xs">
+          <Link
+            color="foreground"
+            href="/about"
+            className="flex items-center gap-2 text-xs">
             <FileText className="size-4" />
             About
           </Link>
         </NavbarItem>
       </NavbarContent>
       <NavbarContent justify="end">
-        <ThemeSwitcher isBlur={false} className="hidden sm:block" />
+        <ThemeSwitcher
+          isBlur={false}
+          className="hidden sm:block"
+        />
 
         <NavbarItem>
           <LoginUserBtn />
@@ -127,7 +143,11 @@ export default function Header() {
       <NavbarMenu>
         {menuItems.map((item, index) => (
           <NavbarMenuItem key={`${item.title}-${index}`}>
-            <Link className="w-full" color="foreground" href={item.href} size="lg">
+            <Link
+              className="w-full"
+              color="foreground"
+              href={item.href}
+              size="lg">
               <div className="flex items-center gap-2">
                 <item.icon className="size-5" />
                 <span>{item.title}</span>
@@ -136,7 +156,11 @@ export default function Header() {
           </NavbarMenuItem>
         ))}
         <NavbarMenuItem>
-          <Link className="w-full" color="foreground" href="/about" size="lg">
+          <Link
+            className="w-full"
+            color="foreground"
+            href="/about"
+            size="lg">
             <div className="flex items-center gap-2">
               <FileText className="size-5" />
               <span>About</span>
@@ -147,7 +171,10 @@ export default function Header() {
           <LoginUserBtnMobile />
         </NavbarMenuItem>
         <NavbarMenuItem>
-          <ThemeSwitcher isBlur={false} className="w-full" />
+          <ThemeSwitcher
+            isBlur={false}
+            className="w-full"
+          />
         </NavbarMenuItem>
       </NavbarMenu>
     </Navbar>
@@ -155,21 +182,24 @@ export default function Header() {
 }
 
 function LoginUserBtn() {
-  // Original content preserved for reference:
-  // return (
-  //   <Button as={Link} href="/signin" size="sm">
-  //     Sign In
-  //   </Button>
-  // );
-  return null;
+  return (
+    <Button
+      as={Link}
+      href="/signin"
+      size="sm">
+      Sign In
+    </Button>
+  );
 }
 
 function LoginUserBtnMobile() {
-  // Original content preserved for reference:
-  // return (
-  //   <Link className="w-full" color="primary" href="/signin" size="lg">
-  //     Sign In
-  //   </Link>
-  // );
-  return null;
+  return (
+    <Link
+      className="w-full"
+      color="primary"
+      href="/signin"
+      size="lg">
+      Sign In
+    </Link>
+  );
 }

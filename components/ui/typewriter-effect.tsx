@@ -48,13 +48,13 @@ export const TypewriterEffect = ({
   const renderWords = () => {
     return (
       <motion.div ref={scope} className="inline">
-        {wordsArray.map((word, idx) => {
+        {wordsArray.map((word, _idx) => {
           return (
-            <div key={`word-${idx}`} className="inline-block">
-              {word.text.map((char, index) => (
+            <div key={word.text.join("")} className="inline-block">
+              {word.text.map((char, _index) => (
                 <motion.span
                   initial={{}}
-                  key={`char-${index}`}
+                  key={char}
                   className={cn(`hidden text-black opacity-0 dark:text-white`, word.className)}>
                   {char}
                 </motion.span>
@@ -81,7 +81,7 @@ export const TypewriterEffect = ({
           repeat: Infinity,
           repeatType: "reverse",
         }}
-        className={cn("inline-block h-4 w-[4px] rounded-sm bg-blue-500 md:h-6 lg:h-10", cursorClassName)}></motion.span>
+        className={cn("inline-block h-4 w-[4px] rounded-xs bg-blue-500 md:h-6 lg:h-10", cursorClassName)}></motion.span>
     </div>
   );
 };
@@ -108,11 +108,11 @@ export const TypewriterEffectSmooth = ({
   const renderWords = () => {
     return (
       <div>
-        {wordsArray.map((word, idx) => {
+        {wordsArray.map((word, _idx) => {
           return (
-            <div key={`word-${idx}`} className="inline-block">
-              {word.text.map((char, index) => (
-                <span key={`char-${index}`} className={cn(`text-black dark:text-white`, word.className)}>
+            <div key={word.text.join("")} className="inline-block">
+              {word.text.map((char, _index) => (
+                <span key={char} className={cn(`text-black dark:text-white`, word.className)}>
                   {char}
                 </span>
               ))}
@@ -161,7 +161,7 @@ export const TypewriterEffectSmooth = ({
           repeat: Infinity,
           repeatType: "reverse",
         }}
-        className={cn("block h-4 w-[4px] rounded-sm bg-blue-500 sm:h-6 xl:h-12", cursorClassName)}></motion.span>
+        className={cn("block h-4 w-[4px] rounded-xs bg-blue-500 sm:h-6 xl:h-12", cursorClassName)}></motion.span>
     </div>
   );
 };

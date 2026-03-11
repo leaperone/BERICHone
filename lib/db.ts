@@ -1,22 +1,27 @@
-// ===============================
-// Temporarily DISABLED database initialization and db client. No DB in use currently.
-// ===============================
-// import { PrismaClient as PrismaTemplateClient } from '@/prisma/client_template';
+// DB disabled — no database needed for current BERICHone landing page
 //
-// // Global type declaration
-// declare const globalThis: {
-//   prismaTemplateGlobal: ReturnType<typeof createTemplateClient>;
-// } & typeof global;
+// import { drizzle } from "drizzle-orm/node-postgres";
+// import * as schema from "./schema";
 //
-// // Create client singleton
-// const createTemplateClient = () => new PrismaTemplateClient();
+// type DbClient = ReturnType<typeof drizzle<typeof schema>>;
 //
-// // Init client instance
-// export const templateDb = globalThis.prismaTemplateGlobal ?? createTemplateClient();
+// const g = globalThis as unknown as {
+//   drizzleGlobal: DbClient | undefined;
+// };
 //
-// // Save instance for development
-// if (process.env.NODE_ENV !== 'production') {
-//   globalThis.prismaTemplateGlobal = templateDb;
+// function createClient(): DbClient {
+//   const url = process.env.DATABASE_URL ?? process.env.TEMPLATE_DATABASE_URL;
+//   if (!url) {
+//     throw new Error("DATABASE_URL is not set");
+//   }
+//   return drizzle(url, { schema });
 // }
 //
-// export const prisma = templateDb;
+// export function getDb(): DbClient {
+//   if (!g.drizzleGlobal) {
+//     g.drizzleGlobal = createClient();
+//   }
+//   return g.drizzleGlobal;
+// }
+//
+// export const hasDatabase = !!(process.env.DATABASE_URL ?? process.env.TEMPLATE_DATABASE_URL);

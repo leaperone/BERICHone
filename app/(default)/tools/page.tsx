@@ -1,5 +1,5 @@
-import { Card, CardBody, CardHeader } from "@heroui/react";
 import { Calculator, FileText, Palette, Settings } from "lucide-react";
+import { Card, CardBody, CardHeader } from "@/lib/heroui";
 
 export default function ToolsPage() {
   const tools = [

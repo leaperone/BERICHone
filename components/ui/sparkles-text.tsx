@@ -1,10 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-"use client";
+'use client';
 
-import { motion } from "framer-motion";
-import { type CSSProperties, type ReactElement, useEffect, useState } from "react";
+import { CSSProperties, ReactElement, useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
 
-import { cn } from "@/lib/utils";
+import { cn } from '@/lib/utils';
 
 interface Sparkle {
   id: string;
@@ -64,7 +64,7 @@ interface SparklesTextProps {
 
 const SparklesText: React.FC<SparklesTextProps> = ({
   text,
-  colors = { first: "#9E7AFF", second: "#FE8BBB" },
+  colors = { first: '#9E7AFF', second: '#FE8BBB' },
   className,
   sparklesCount = 10,
   ...props
@@ -104,21 +104,24 @@ const SparklesText: React.FC<SparklesTextProps> = ({
     const interval = setInterval(updateStars, 100);
 
     return () => clearInterval(interval);
-  }, [colors.first, colors.second, sparklesCount]);
+  }, [colors.first, colors.second]);
 
   return (
     <div
-      className={cn("font-bold text-6xl", className)}
+      className={cn('text-6xl font-bold', className)}
       {...props}
       style={
         {
-          "--sparkles-first-color": `${colors.first}`,
-          "--sparkles-second-color": `${colors.second}`,
+          '--sparkles-first-color': `${colors.first}`,
+          '--sparkles-second-color': `${colors.second}`,
         } as CSSProperties
       }>
       <span className="relative inline-block">
         {sparkles.map((sparkle) => (
-          <Sparkle key={sparkle.id} {...sparkle} />
+          <Sparkle
+            key={sparkle.id}
+            {...sparkle}
+          />
         ))}
         <strong>{text}</strong>
       </span>

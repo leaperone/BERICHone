@@ -1,5 +1,5 @@
-import { Card, CardBody, CardHeader } from "@heroui/react";
 import { BookOpen, Code, Settings, Users } from "lucide-react";
+import { Card, CardBody, CardHeader } from "@/lib/heroui";
 
 export default function DocsPage() {
   const docs = [

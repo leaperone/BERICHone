@@ -46,6 +46,7 @@ export function HoverBorderGradient({
 
   const highlight = "radial-gradient(75% 181.15942028985506% at 50% 50%, #789cef 0%, rgba(255, 255, 255, 0) 100%)";
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: rotateDirection is intentionally excluded
   useEffect(() => {
     if (!hovered) {
       const interval = setInterval(() => {
@@ -53,7 +54,7 @@ export function HoverBorderGradient({
       }, duration * 1000);
       return () => clearInterval(interval);
     }
-  }, [hovered, duration, rotateDirection]);
+  }, [hovered]);
   return (
     <Tag
       onMouseEnter={() => {
@@ -61,7 +62,7 @@ export function HoverBorderGradient({
       }}
       onMouseLeave={() => setHovered(false)}
       className={cn(
-        "relative flex h-min w-fit flex-col flex-nowrap content-center items-center justify-center gap-10 overflow-visible rounded-full border bg-black/20 decoration-clone p-px transition duration-500 hover:bg-black/10 dark:bg-white/20",
+        "relative flex h-min w-fit flex-col flex-nowrap content-center items-center justify-center gap-10 overflow-visible rounded-full border bg-black/20 box-decoration-clone p-px transition duration-500 hover:bg-black/10 dark:bg-white/20",
         containerClassName,
       )}
       {...props}>

@@ -1,4 +1,4 @@
-import { cn, Image } from "@heroui/react";
+import { cn, Image } from "@/lib/heroui";
 
 export const BrandLogo = () => (
   <div className="flex size-10 items-center rounded-full bg-white dark:bg-black">

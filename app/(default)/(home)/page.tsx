@@ -1,4 +1,4 @@
-import { Button, Card, Chip } from "@heroui/react";
+import { Button, Card, Chip } from "@/lib/heroui";
 import { Icon } from "@iconify/react";
 import { CheckIcon } from "lucide-react";
 import Link from "next/link";
@@ -201,7 +201,7 @@ export default function HomePage() {
       name: "Mike Zhang",
       role: "Import Business Owner",
       content:
-        "Reliable and fast — got quotes from verified suppliers, and all the paperwork/logistics were handled for me. Saved money and trouble.",
+        "Reliable and fast — got quotes from verified suppliers, and all the paperwork/logistics were handled for me. Saved money and trouble.",
     },
     {
       name: "Emily Wang",
@@ -225,7 +225,7 @@ export default function HomePage() {
       name: "Tom Yang",
       role: "International Trade Manager",
       content:
-        "Communication and shipping so easy — we didn't worry about getting stuck with bad suppliers. Highly recommend for any importer.",
+        "Communication and shipping so easy — we didn't worry about getting stuck with bad suppliers. Highly recommend for any importer.",
     },
   ];
 
@@ -242,14 +242,14 @@ export default function HomePage() {
         <p className="mt-10 mb-12 w-full max-w-2xl text-center text-muted-foreground text-base sm:text-lg md:text-xl leading-relaxed sm:mt-12 sm:mb-14 md:mt-16 md:mb-16">
           Let us help you find trusted suppliers, ensure quality and deliver on time.
         </p>
-        <Button
-          as={Link}
-          href="/dashboard"
-          size="lg"
-          startContent={<Icon icon="fluent-emoji:handshake" className="size-5" />}
-          className="bg-foreground text-background transition-opacity hover:opacity-90">
-          Get Started
-        </Button>
+        <Link href="/dashboard">
+          <Button
+            size="lg"
+            startContent={<Icon icon="fluent-emoji:handshake" className="size-5" />}
+            className="bg-foreground text-background transition-opacity hover:opacity-90">
+            Get Started
+          </Button>
+        </Link>
       </section>
       {/* Banner */}
       <section className="w-full py-8 text-center">

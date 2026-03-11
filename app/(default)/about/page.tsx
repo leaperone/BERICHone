@@ -1,5 +1,5 @@
-import { Avatar, Button, Card, CardBody, Chip } from "@heroui/react";
 import { Award, Heart, Mail, Phone, Target, Users } from "lucide-react";
+import { Avatar, Button, Card, CardBody, Chip } from "@/lib/heroui";
 
 export default function AboutPage() {
   const teamMembers = [

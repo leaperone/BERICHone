@@ -1,22 +1,18 @@
-import { HeroUIProvider } from "@heroui/react";
-import { ThemeProvider as NextThemesProvider } from "next-themes";
-import { LocaleProvider } from "@/i18n/locale-provider";
-// import { SessionProvider } from 'next-auth/react';
-// import { auth } from '@/auth';
+import { auth } from "@/auth";
 import { getLocale } from "@/i18n/server";
+import { ClientProviders } from "./client-providers";
 
 export async function Providers({ children }: { children: React.ReactNode }) {
-  // const session = await auth();
+  let session = null;
+  try {
+    session = await auth();
+  } catch {
+    // Auth not configured (missing AUTH_SECRET etc.) — continue without session
+  }
   const locale = await getLocale();
   return (
-    // <SessionProvider session={session}>
-    <HeroUIProvider>
-      <LocaleProvider value={locale}>
-        <NextThemesProvider attribute="class" defaultTheme="light">
-          {children}
-        </NextThemesProvider>
-      </LocaleProvider>
-    </HeroUIProvider>
-    // </SessionProvider>
+    <ClientProviders session={session} locale={locale}>
+      {children}
+    </ClientProviders>
   );
 }
